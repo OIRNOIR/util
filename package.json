@@ -2,6 +2,16 @@
 	"name": "@oirnoir/util",
 	"version": "0.0.0",
 	"description": "Utility methods for discord.js projects, for bun.js",
+	"homepage": "https://github.com/OIRNOIR/util",
+	"bugs": {
+		"url": "https://github.com/OIRNOIR/util/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/OIRNOIR/util.git"
+	},
+	"license": "MIT",
+	"author": "OIRNOIR",
 	"type": "module",
 	"main": "index.ts",
 	"scripts": {
@@ -10,20 +20,9 @@
 		"lint": "biome check . --write",
 		"typecheck": "bunx tsc --noEmit"
 	},
-	"homepage": "https://github.com/OIRNOIR/util",
-	"author": "OIRNOIR",
-	"license": "MIT",
-	"private": false,
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/OIRNOIR/util.git"
-	},
 	"dependencies": {
 		"discord.js": "14.21.0",
 		"timestring": "7.0.0"
-	},
-	"engines": {
-		"bun": ">=1.2.6"
 	},
 	"devDependencies": {
 		"@types/timestring": "7.0.0",
@@ -31,5 +30,8 @@
 	},
 	"peerDependencies": {
 		"typescript": "^5"
+	},
+	"engines": {
+		"bun": ">=1.2.6"
 	}
 }
