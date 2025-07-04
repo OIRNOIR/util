@@ -39,8 +39,6 @@
 		"indentWidth": 1
 	},
 	"files": {
-		"includes": [
-			"**"
-		]
+		"includes": ["**"]
 	}
 }
