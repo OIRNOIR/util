@@ -7,6 +7,8 @@ export class FetchProxy {
 
 	constructor(proxyEndpoint: string) {
 		this.proxyEndpoint = proxyEndpoint;
+		if (this.proxyEndpoint.length == 0)
+			throw new Error("Proxy endpoint must not be a blank string");
 	}
 
 	async fetch(
