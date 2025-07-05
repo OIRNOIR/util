@@ -21,13 +21,13 @@
 		"typecheck": "bunx tsc --noEmit"
 	},
 	"dependencies": {
+		"@types/bun": "1.2.17",
 		"@types/timestring": "7.0.0",
 		"discord.js": "14.21.0",
 		"timestring": "7.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.0.6",
-		"@types/bun": "latest"
+		"@biomejs/biome": "2.0.6"
 	},
 	"peerDependencies": {
 		"typescript": "^5"
