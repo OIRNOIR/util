@@ -27,7 +27,7 @@
 		"timestring": "7.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.6"
+		"@biomejs/biome": "2.1.1"
 	},
 	"peerDependencies": {
 		"typescript": "5.8.3"
