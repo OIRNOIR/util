@@ -7,14 +7,16 @@
 			"recommended": true,
 			"suspicious": {
 				"noDoubleEquals": "off",
-				"noGlobalIsNan": "off"
+				"noGlobalIsNan": "error"
 			},
 			"correctness": {
 				"noUnusedVariables": "error",
-				"noUnusedFunctionParameters": "error"
+				"noUnusedFunctionParameters": "error",
+				"noUnusedImports": "error"
 			},
 			"style": {
 				"noParameterAssign": "error",
+				"noNonNullAssertion": "error",
 				"useAsConstAssertion": "error",
 				"useDefaultParameterLast": "error",
 				"useEnumInitializers": "error",
@@ -29,7 +31,8 @@
 	},
 	"javascript": {
 		"formatter": {
-			"semicolons": "always"
+			"semicolons": "always",
+			"trailingCommas": "none"
 		}
 	},
 	"formatter": {

@@ -13,7 +13,7 @@ export class FetchProxy {
 
 	async fetch(
 		endpoint: string | URL,
-		options: RequestInit = {},
+		options: RequestInit = {}
 	): Promise<Response & { proxyHeaders: Headers }> {
 		const configuredOptions: RequestInit = {
 			method: options.method ?? "GET",
@@ -34,10 +34,10 @@ export class FetchProxy {
 					referrer: options.referrer ?? undefined,
 					referrerPolicy: options.referrerPolicy ?? undefined,
 					integrity: options.integrity ?? undefined,
-					keepalive: options.keepalive ?? undefined,
+					keepalive: options.keepalive ?? undefined
 				}),
-				headers: options.headers == null ? "{}" : JSON.stringify(options.headers),
-			},
+				headers: options.headers == null ? "{}" : JSON.stringify(options.headers)
+			}
 		};
 		const res = await fetch(this.proxyEndpoint, configuredOptions);
 		const receivedHeaders = res.headers.has("incomingHeaders")
@@ -52,7 +52,7 @@ export class FetchProxy {
 		const resWithHeaders: ProxyResponse = res as ProxyResponse;
 		if (receivedHeaders != null) {
 			Object.defineProperty(resWithHeaders, "headers", {
-				get: () => new Headers(receivedHeaders),
+				get: () => new Headers(receivedHeaders)
 			});
 		}
 		return resWithHeaders;

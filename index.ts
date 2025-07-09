@@ -14,7 +14,7 @@ import {
 	type RoleSelectMenuInteraction,
 	type StringSelectMenuInteraction,
 	type UserSelectMenuInteraction,
-	verifyString,
+	verifyString
 } from "discord.js";
 /* cspell: disable-next-line */
 import timeString from "timestring";
@@ -27,7 +27,7 @@ export * from "./Type.ts";
  */
 export function splitMessage(
 	textIn: string,
-	{ maxLength = 2_000, char = "\n", prepend = "", append = "" } = {},
+	{ maxLength = 2_000, char = "\n", prepend = "", append = "" } = {}
 ): string[] {
 	const text = verifyString(textIn);
 	if (text.length <= maxLength) return [text];
@@ -107,7 +107,7 @@ export function parseInteractionArgs(
 		| "getBoolean"
 		| "getSubcommandGroup"
 		| "getSubcommand"
-	>,
+	>
 ): string[] {
 	if (
 		interactionOptions.data == undefined ||
@@ -139,7 +139,7 @@ export function parseInteractionArgs(
 				interactionOptions.data[0].options[0].options.length > 0
 			) {
 				for (const arg of interactionOptions.data[0].options[0].options.map(
-					(e) => e.value,
+					(e) => e.value
 				)) {
 					args.push(String(arg ?? ""));
 				}
@@ -181,7 +181,7 @@ export async function promptModalAnswer(
 		| MentionableSelectMenuInteraction
 		| ChannelSelectMenuInteraction
 		| ChatInputCommandInteraction,
-	modal: ModalBuilder,
+	modal: ModalBuilder
 ): Promise<ModalSubmitInteraction | null> {
 	modal.setCustomId(`${modal.data.custom_id}_${Date.now()}`);
 	try {
@@ -197,7 +197,7 @@ export async function promptModalAnswer(
 		const submittedModal = await inter.awaitModalSubmit({
 			filter: (i) =>
 				i.user.id == inter.user.id && i.customId == modal.data.custom_id,
-			time: 600000,
+			time: 600000
 		});
 		return submittedModal;
 	} catch (err) {
@@ -221,7 +221,7 @@ export interface ParsedTime {
 export function parseUserInputtedTime(
 	rawTimeInterval: string,
 	allowTimestamps = false,
-	relativeTime = Date.now(),
+	relativeTime = Date.now()
 ): ParsedTime {
 	const digits = rawTimeInterval.match(/\d/g);
 	if (
@@ -232,7 +232,10 @@ export function parseUserInputtedTime(
 		allowTimestamps
 	) {
 		let timestampString = rawTimeInterval.match(/\d/g)?.join("");
-		if (timestampString == null || isNaN(Number(timestampString)))
+		if (
+			timestampString == null ||
+			isNumeric(timestampString, { allowDecimal: true, allowNegative: true })
+		)
 			timestampString = String(relativeTime);
 		const timestamp =
 			timestampString.length == String(relativeTime).length ||
@@ -250,7 +253,7 @@ export function parseUserInputtedTime(
 			intervalSeconds: Math.trunc(timeInterval / 1000),
 			intervalMs: timeInterval,
 			string: durationWords,
-			timestamp: timestamp,
+			timestamp: timestamp
 		};
 	}
 	let timeInterval: number;
@@ -263,7 +266,7 @@ export function parseUserInputtedTime(
 	return {
 		intervalSeconds: Math.trunc(timeInterval / 1000),
 		intervalMs: timeInterval,
-		string: durationWords,
+		string: durationWords
 	};
 }
 
@@ -305,7 +308,7 @@ export function sleep(ms: number) {
 
 export function filterComponents<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
-	filter: (arg0: T) => boolean,
+	filter: (arg0: T) => boolean
 ): T[] {
 	const result: T[] = [];
 	if (components instanceof ActionRowBuilder) {
@@ -321,7 +324,7 @@ export function filterComponents<T extends AnyComponentBuilder>(
 
 export function findComponent<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
-	filter: (arg0: T) => boolean,
+	filter: (arg0: T) => boolean
 ): T | null {
 	const filtered = filterComponents(components, filter);
 	return filtered == null ? null : (filtered[0] ?? null);
@@ -329,7 +332,7 @@ export function findComponent<T extends AnyComponentBuilder>(
 
 export function getComponentByCustomId<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
-	id: string,
+	id: string
 ): T | null {
 	return findComponent(components, (c) => {
 		if (Object.keys(c.data).indexOf("custom_id") == -1)
@@ -349,4 +352,25 @@ export function randomString(length: number): string {
 		counter += 1;
 	}
 	return result;
+}
+
+export function isNumeric(
+	str: string,
+	options: { allowNegative: boolean; allowDecimal: boolean }
+): boolean {
+	let regex: RegExp;
+	if (options.allowNegative) {
+		if (options.allowDecimal) {
+			regex = /^-?\d+(\.\d+)?$/;
+		} else {
+			regex = /^-?\d+$/;
+		}
+	} else {
+		if (options.allowDecimal) {
+			regex = /^\d+(\.\d+)?$/;
+		} else {
+			regex = /^\d+$/;
+		}
+	}
+	return regex.test(str);
 }
