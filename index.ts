@@ -355,29 +355,23 @@ export function randomString(length: number): string {
 }
 
 export function isNumeric(
-	str: string | number | undefined | null,
+	str: string | undefined | null,
 	options: { allowNegative: boolean; allowDecimal: boolean }
 ): boolean {
 	if (str == null) return false;
-	if (typeof str === "string") {
-		let regex: RegExp;
-		if (options.allowNegative) {
-			if (options.allowDecimal) {
-				regex = /^-?\d+(\.\d+)?$/;
-			} else {
-				regex = /^-?\d+$/;
-			}
+	let regex: RegExp;
+	if (options.allowNegative) {
+		if (options.allowDecimal) {
+			regex = /^-?\d+(\.\d+)?$/;
 		} else {
-			if (options.allowDecimal) {
-				regex = /^\d+(\.\d+)?$/;
-			} else {
-				regex = /^\d+$/;
-			}
+			regex = /^-?\d+$/;
 		}
-		return regex.test(str);
+	} else {
+		if (options.allowDecimal) {
+			regex = /^\d+(\.\d+)?$/;
+		} else {
+			regex = /^\d+$/;
+		}
 	}
-	if (typeof str === "number") {
-		return Number.isNaN(str);
-	}
-	return false;
+	return regex.test(str);
 }
