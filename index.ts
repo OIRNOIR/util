@@ -271,7 +271,7 @@ export function parseUserInputtedTime(
 }
 
 /**
- * Converts a timestamp in ms to human-readable format
+ * Converts a quantity of ms to human-readable format
  */
 export function msToHuman(ms: number): string {
 	const seconds = Math.trunc((ms / 1000) % 60);
@@ -300,6 +300,42 @@ export function msToHuman(ms: number): string {
 		durationWords = `${durationWords}${durationWords.length > 0 ? ", " : ""}${seconds} second${seconds == 1 ? "" : "s"}`;
 	}
 	return durationWords;
+}
+
+/**
+ * Converts a quantity of ms to a shorter human-readable format
+ */
+export function msToShort(ms: number): string {
+	const seconds = Math.trunc((ms / 1000) % 60);
+	const minutes = Math.trunc((ms / 60000) % 60);
+	const hours = Math.trunc((ms / 3600000) % 24);
+	const days = Math.trunc((ms / 86400000) % 7);
+	const weeks = Math.trunc((ms / 604800000) % 52);
+	const years = Math.trunc(ms / 31449600000);
+	let twoDigitMin = String(minutes);
+	while (twoDigitMin.length < 2) {
+		twoDigitMin = `0${twoDigitMin}`;
+	}
+	let twoDigitSec = String(seconds);
+	while (twoDigitSec.length < 2) {
+		twoDigitSec = `0${twoDigitSec}`;
+	}
+	if (years > 0) {
+		return `${years}y${weeks}w${days}d ${hours}:${twoDigitMin}:${twoDigitSec}`;
+	}
+	if (weeks > 0) {
+		return `${weeks}w${days}d ${hours}:${twoDigitMin}:${twoDigitSec}`;
+	}
+	if (days > 0) {
+		return `${days}d ${hours}:${twoDigitMin}:${twoDigitSec}`;
+	}
+	if (hours > 0) {
+		return `${hours}:${twoDigitMin}:${twoDigitSec}`;
+	}
+	if (minutes > 0) {
+		return `${minutes}:${twoDigitSec}`;
+	}
+	return `${seconds}s`;
 }
 
 export function sleep(ms: number) {
