@@ -21,7 +21,7 @@
 		"typecheck": "bunx tsc --noEmit"
 	},
 	"dependencies": {
-		"@types/bun": "1.2.18",
+		"@types/bun": "1.2.19",
 		"@types/timestring": "7.0.0",
 		"discord.js": "14.21.0",
 		"timestring": "7.0.0"
