@@ -338,10 +338,6 @@ export function msToShort(ms: number): string {
 	return `${seconds}s`;
 }
 
-export function sleep(ms: number) {
-	return new Promise((resolve) => setTimeout(resolve, ms).unref());
-}
-
 export function filterComponents<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
 	filter: (arg0: T) => boolean
