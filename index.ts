@@ -234,7 +234,7 @@ export function parseUserInputtedTime(
 		let timestampString = rawTimeInterval.match(/\d/g)?.join("");
 		if (
 			timestampString == null ||
-			isNumeric(timestampString, { allowDecimal: true, allowNegative: true })
+			!isNumeric(timestampString, { allowDecimal: true, allowNegative: true })
 		)
 			timestampString = String(relativeTime);
 		const timestamp =
