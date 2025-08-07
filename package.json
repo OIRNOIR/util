@@ -30,7 +30,7 @@
 		"@biomejs/biome": "2.1.2"
 	},
 	"peerDependencies": {
-		"typescript": "5.8.3"
+		"typescript": "5.9.2"
 	},
 	"engines": {
 		"bun": ">=1.2.6"
