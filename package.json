@@ -1,6 +1,6 @@
 {
 	"name": "@oirnoir/util",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "Utility methods for discord.js projects, for bun.js",
 	"homepage": "https://github.com/OIRNOIR/util",
 	"bugs": {
