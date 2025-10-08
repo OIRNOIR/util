@@ -10,6 +10,7 @@ import {
 	DiscordjsErrorCodes,
 	type MentionableSelectMenuInteraction,
 	type ModalBuilder,
+	ModalSubmitFields,
 	type ModalSubmitInteraction,
 	type RoleSelectMenuInteraction,
 	type StringSelectMenuInteraction,
@@ -209,6 +210,15 @@ export async function promptModalAnswer(
 		}
 		throw err;
 	}
+}
+
+export function getOptionalTextInputValue(fields: ModalSubmitFields, customId: string): string | null {
+	try {
+		return fields.getTextInputValue(customId);
+	} catch {
+		// We return null if the attempt fails.
+	}
+	return null;
 }
 
 export interface ParsedTime {
