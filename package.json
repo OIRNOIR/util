@@ -27,7 +27,7 @@
 		"timestring": "7.0.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.2.5"
+		"@biomejs/biome": "2.2.6"
 	},
 	"engines": {
 		"bun": ">=1.2.6"
