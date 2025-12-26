@@ -1,3 +1,4 @@
+import { ExecException, type ExecOptions, exec } from "node:child_process";
 import { setTimeout } from "node:timers";
 import {
 	ActionRowBuilder,
@@ -425,5 +426,17 @@ export function isNumeric(
 export function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
+	});
+}
+
+export function execAsync(command: string, settings?: ExecOptions): Promise<{
+	error: ExecException | null,
+	stdout: string,
+	stderr: string
+}> {
+	return new Promise((resolve) => {
+		exec(command, settings, (error, stdout, stderr) => {
+			resolve({ error, stdout: stdout as string, stderr: stderr as string });
+		});
 	});
 }
