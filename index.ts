@@ -17,6 +17,7 @@ import {
 	type UserSelectMenuInteraction,
 	verifyString
 } from "discord.js";
+import { setTimeout } from "node:timers";
 /* cspell: disable-next-line */
 import timeString from "timestring";
 
@@ -419,4 +420,10 @@ export function isNumeric(
 		}
 	}
 	return regex.test(str);
+}
+
+export function sleep(ms: number) {
+	return new Promise((resolve) => {
+		setTimeout(resolve, ms);
+	});
 }
