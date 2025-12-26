@@ -3,7 +3,6 @@
   "specifiers": {
     "npm:@biomejs/biome@2.3.2": "2.3.2",
     "npm:@types/timestring@7.0.0": "7.0.0",
-    "npm:discord.js@14.24.2": "14.24.2",
     "npm:timestring@7.0.0": "7.0.0"
   },
   "npm": {
@@ -207,7 +206,7 @@
       "dependencies": [
         "npm:@biomejs/biome@2.3.2",
         "npm:@types/timestring@7.0.0",
-        "npm:discord.js@14.24.2",
+        "npm:discord.js@14.25.1",
         "npm:timestring@7.0.0"
       ]
     }
