@@ -1,3 +1,4 @@
+import { setTimeout } from "node:timers";
 import {
 	ActionRowBuilder,
 	type AnyComponentBuilder,
@@ -17,7 +18,6 @@ import {
 	type UserSelectMenuInteraction,
 	verifyString
 } from "discord.js";
-import { setTimeout } from "node:timers";
 /* cspell: disable-next-line */
 import timeString from "timestring";
 

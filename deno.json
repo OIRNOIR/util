@@ -8,8 +8,6 @@
 		"typecheck": "deno check"
 	},
 	"lint": {
-		"exclude": [
-			"./Type.ts"
-		]
+		"exclude": ["./Type.ts"]
 	}
 }
