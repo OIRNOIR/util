@@ -44,7 +44,7 @@ export class Type {
 	/**
 	 * The type string for the children of this Type
 	 */
-	get childTypes() {
+	get childTypes(): string {
 		if (!this.childValues.size) return "";
 		return `<${
 			(this.childKeys.size ? `${Type.list(this.childKeys)}, ` : "") +

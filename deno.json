@@ -1,4 +1,8 @@
 {
+	"name": "@oirnoir/util",
+	"version": "0.0.21",
+	"license": "MIT",
+	"exports": "./index.ts",
 	"compilerOptions": {
 		"lib": ["deno.ns", "deno.window"]
 	},

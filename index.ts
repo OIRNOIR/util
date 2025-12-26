@@ -235,7 +235,7 @@ export interface ParsedTime {
 export function parseUserInputtedTime(
 	rawTimeInterval: string,
 	allowTimestamps = false,
-	relativeTime = Date.now()
+	relativeTime: number = Date.now()
 ): ParsedTime {
 	const digits = rawTimeInterval.match(/\d/g);
 	if (
@@ -422,7 +422,7 @@ export function isNumeric(
 	return regex.test(str);
 }
 
-export function sleep(ms: number) {
+export function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
