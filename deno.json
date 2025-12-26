@@ -2,6 +2,7 @@
 	"name": "@oirnoir/util",
 	"version": "0.0.21",
 	"license": "MIT",
+	"description": "Utility methods for discord.js projects, for deno",
 	"exports": "./index.ts",
 	"compilerOptions": {
 		"lib": ["deno.ns", "deno.window"]
@@ -13,5 +14,11 @@
 	},
 	"lint": {
 		"exclude": ["./Type.ts"]
+	},
+	"imports": {
+		"@biomejs/biome": "npm:@biomejs/biome@2.3.10",
+		"@types/timestring": "npm:@types/timestring@7.0.0",
+		"discord.js": "npm:discord.js@14.25.1",
+		"timestring": "npm:timestring@7.0.0"
 	}
 }
