@@ -447,3 +447,7 @@ export function execAsync(
 export type NoNulls<T> = {
 	[K in keyof T]: NonNullable<T[K]>;
 };
+
+export type YesNulls<T> = {
+	[K in keyof T]: T[K] | null;
+};
