@@ -1,4 +1,4 @@
-import { ExecException, type ExecOptions, exec } from "node:child_process";
+import { type ExecException, type ExecOptions, exec } from "node:child_process";
 import { setTimeout } from "node:timers";
 import {
 	ActionRowBuilder,
@@ -429,10 +429,13 @@ export function sleep(ms: number): Promise<void> {
 	});
 }
 
-export function execAsync(command: string, settings?: ExecOptions): Promise<{
-	error: ExecException | null,
-	stdout: string,
-	stderr: string
+export function execAsync(
+	command: string,
+	settings?: ExecOptions
+): Promise<{
+	error: ExecException | null;
+	stdout: string;
+	stderr: string;
 }> {
 	return new Promise((resolve) => {
 		exec(command, settings, (error, stdout, stderr) => {
@@ -440,3 +443,7 @@ export function execAsync(command: string, settings?: ExecOptions): Promise<{
 		});
 	});
 }
+
+export type NoNulls<T> = {
+	[K in keyof T]: NonNullable<T[K]>;
+};
