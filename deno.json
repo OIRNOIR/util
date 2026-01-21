@@ -1,6 +1,6 @@
 {
 	"name": "@oirnoir/util",
-	"version": "0.0.25",
+	"version": "0.0.26",
 	"license": "MIT",
 	"description": "Utility methods for discord.js projects, for deno",
 	"exports": "./index.ts",

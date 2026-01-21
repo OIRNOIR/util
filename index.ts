@@ -444,10 +444,57 @@ export function execAsync(
 	});
 }
 
-export type NoNulls<T> = {
-	[K in keyof T]: NonNullable<T[K]>;
-};
+/**
+ * A lightweight curl wrapper for Deno
+ */
+export async function curl(...curlArgs: string[]): Promise<Response> {
+	const command = new Deno.Command("curl", {
+		args: curlArgs,
+		stdout: "piped",
+		stderr: "piped"
+	});
 
-export type YesNulls<T> = {
-	[K in keyof T]: T[K] | null;
-};
+	const { code, stdout, stderr } = await command.output();
+
+	const stdoutText = new TextDecoder().decode(stdout);
+	const stderrText = new TextDecoder().decode(stderr);
+
+	if (code !== 0) {
+		console.error("Curl stderr:");
+		console.error(stderrText);
+		throw new Error(`Curl exited with code ${code}`);
+	}
+
+	return parseRawHttpResponse(stdoutText);
+}
+
+/**
+ * Parses a raw HTTP response into a fetch Response
+ */
+function parseRawHttpResponse(raw: string): Response {
+	const [headerPart, ...bodyParts] = raw.split(/\r?\n\r?\n/);
+	const body = bodyParts.join("\n\n");
+
+	const lines = headerPart.split(/\r?\n/);
+	const statusLine = lines.shift();
+	if (statusLine === undefined)
+		throw new Error("Curl HTTP Response Syntax Error: No status line!");
+
+	const [, statusCode, ...statusTextParts] = statusLine.split(" ");
+	const status = Number(statusCode);
+	const statusText = statusTextParts.join(" ");
+
+	const headers = new Headers();
+	for (const line of lines) {
+		const idx = line.indexOf(":");
+		if (idx !== -1) {
+			headers.append(line.slice(0, idx).trim(), line.slice(idx + 1).trim());
+		}
+	}
+
+	return new Response(body, {
+		status,
+		statusText,
+		headers
+	});
+}
