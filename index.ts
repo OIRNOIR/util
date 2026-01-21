@@ -449,7 +449,7 @@ export function execAsync(
  */
 export async function curl(...curlArgs: string[]): Promise<Response> {
 	const command = new Deno.Command("curl", {
-		args: curlArgs,
+		args: ["-isSL", ...curlArgs],
 		stdout: "piped",
 		stderr: "piped"
 	});
