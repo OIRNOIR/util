@@ -498,3 +498,20 @@ function parseRawHttpResponse(raw: string): Response {
 		headers
 	});
 }
+
+class PrivateTimeoutIndicator {}
+
+export async function withTimeout<T>(
+	promise: Promise<T>,
+	timeout: number
+): Promise<T> {
+	const promises = [
+		promise,
+		sleep(timeout).then(() => new PrivateTimeoutIndicator())
+	];
+	const result = await Promise.race(promises);
+	if (result instanceof PrivateTimeoutIndicator) {
+		throw new Error("Timeout reached when awaiting promise resolution!");
+	}
+	return result;
+}
