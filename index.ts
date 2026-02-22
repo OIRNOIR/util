@@ -175,6 +175,10 @@ export function fixButtonStyle(style: string): number {
 	}
 }
 
+/**
+ * Allows a Discord modal answer to be awaitable without throwing an error.
+ * Returns null if the modal is not submitted.
+ */
 export async function promptModalAnswer(
 	inter:
 		| ButtonInteraction
@@ -214,6 +218,10 @@ export async function promptModalAnswer(
 	}
 }
 
+/**
+ * Get an optional text input value from a modal submit fields object.
+ * Returns null if there is no value.
+ */
 export function getOptionalTextInputValue(
 	fields: ModalSubmitFields,
 	customId: string
@@ -226,6 +234,10 @@ export function getOptionalTextInputValue(
 	return null;
 }
 
+/**
+ * Represents a parsed user-inputted time.
+ * Returned by parseUserInputtedTime.
+ */
 export interface ParsedTime {
 	intervalSeconds: number;
 	intervalMs: number;
@@ -233,6 +245,11 @@ export interface ParsedTime {
 	string: string;
 }
 
+/**
+ * Parse user-inputted time. Timestamps can be allowed, optionally.
+ * relativeTime is used to calculate intervals when timestamps are
+ * inputted.
+ */
 export function parseUserInputtedTime(
 	rawTimeInterval: string,
 	allowTimestamps = false,
@@ -353,6 +370,10 @@ export function msToShort(ms: number): string {
 	return `${seconds}s`;
 }
 
+/**
+ * Filter Discord components in a list of ActionRowBuilders by a given predicate.
+ * Returns an array of components that match the predicate.
+ */
 export function filterComponents<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
 	filter: (arg0: T) => boolean
@@ -369,6 +390,10 @@ export function filterComponents<T extends AnyComponentBuilder>(
 	return result;
 }
 
+/**
+ * Find the first component in a list of ActionRowBuilders that matches a predicate.
+ * Returns null if there is none.
+ */
 export function findComponent<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
 	filter: (arg0: T) => boolean
@@ -377,6 +402,9 @@ export function findComponent<T extends AnyComponentBuilder>(
 	return filtered == null ? null : (filtered[0] ?? null);
 }
 
+/**
+ * Finds a component by its custom ID. Returns null if it cannot be found.
+ */
 export function getComponentByCustomId<T extends AnyComponentBuilder>(
 	components: ActionRowBuilder<T>[] | ActionRowBuilder<T>,
 	id: string
@@ -388,6 +416,9 @@ export function getComponentByCustomId<T extends AnyComponentBuilder>(
 	});
 }
 
+/**
+ * Generate a random string of a specific length. Uses Math.random().
+ */
 export function randomString(length: number): string {
 	let result = "";
 	const characters =
@@ -401,6 +432,9 @@ export function randomString(length: number): string {
 	return result;
 }
 
+/**
+ * Check if a string is entirely numeric.
+ */
 export function isNumeric(
 	str: string | undefined | null,
 	options: { allowNegative: boolean; allowDecimal: boolean }
@@ -423,12 +457,18 @@ export function isNumeric(
 	return regex.test(str);
 }
 
+/**
+ * Returns a promise that resolves after a given number of milliseconds.
+ */
 export function sleep(ms: number): Promise<void> {
 	return new Promise((resolve) => {
 		setTimeout(resolve, ms);
 	});
 }
 
+/**
+ * Asynchronously execute a command-line command.
+ */
 export function execAsync(
 	command: string,
 	settings?: ExecOptions
@@ -445,7 +485,8 @@ export function execAsync(
 }
 
 /**
- * A lightweight curl wrapper for Deno
+ * A lightweight curl wrapper for Deno. Input arguments
+ * for curl, and a web API Response object is returned.
  */
 export async function curl(...curlArgs: string[]): Promise<Response> {
 	const command = new Deno.Command("curl", {
@@ -501,6 +542,9 @@ function parseRawHttpResponse(raw: string): Response {
 
 class PrivateTimeoutIndicator {}
 
+/**
+ * Await a promise, but reject if the promise takes too long.
+ */
 export async function withTimeout<T>(
 	promise: Promise<T>,
 	timeout: number

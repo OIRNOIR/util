@@ -1,7 +1,14 @@
+/**
+ * The response object for the request. Includes the
+ * response headers from the proxy service.
+ */
 export interface ProxyResponse extends Response {
 	proxyHeaders: Headers;
 }
 
+/**
+ * Proxy requests through a specific proprietary proxy.
+ */
 export class FetchProxy {
 	proxyEndpoint: string;
 
@@ -14,7 +21,7 @@ export class FetchProxy {
 	async fetch(
 		endpoint: string | URL,
 		options: RequestInit = {}
-	): Promise<Response & { proxyHeaders: Headers }> {
+	): Promise<ProxyResponse> {
 		const configuredOptions: RequestInit = {
 			method: options.method ?? "GET",
 			body: options.body ?? undefined,

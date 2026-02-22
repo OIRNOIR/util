@@ -1,0 +1,28 @@
+name: Publish
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: denoland/setup-deno@v2
+        with:
+          cache: true
+
+      - name: Check out code
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Update lock file
+        run: deno install
+        shell: bash
+
+      - name: Publish
+        run: npx jsr publish
