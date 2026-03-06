@@ -18,12 +18,13 @@ jobs:
           submodules: true
 
       - name: Stop if last commit not from Renovate
-        if: steps.renovate-check.outputs.author != 'renovate[bot]'
+        if: steps.renovate-check.outputs.author != 'renovate'
         run: |
+          echo 
           echo "Last commit not from Renovate, skipping."
 
       - name: Install Deno
-        if: steps.renovate-check.outputs.author == 'renovate[bot]'
+        if: steps.renovate-check.outputs.author == 'renovate'
         uses: denoland/setup-deno@v2
         with:
           cache: true
