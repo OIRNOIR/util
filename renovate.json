@@ -15,6 +15,5 @@
 			"matchDatasources": ["npm"],
 			"abandonmentThreshold": "1 year"
 		}
-	],
-	"keepUpdatedLabel": "keep-updated"
+	]
 }
