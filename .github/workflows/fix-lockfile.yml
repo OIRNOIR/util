@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update-lockfile:
@@ -19,6 +18,9 @@ jobs:
           submodules: true
           ref: ${{ github.head_ref }}
           fetch-depth: 2
+
+      - name: Debug last commit
+        run: git log -1 --pretty=fuller
 
       - name: Check last commit author
         id: renovate-check
@@ -49,21 +51,17 @@ jobs:
         run: deno install
         shell: bash
 
-      - name: Commit changes if needed
+      - name: Amend Renovate commit with updated lockfile
         if: steps.renovate-check.outputs.author == 'renovate[bot]'
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
           if [[ -n "$(git status --porcelain deno.lock)" ]]; then
-            git add deno.lock
-            git commit -m "Auto-update deno.lock"
-            git push origin HEAD:${{ github.head_ref }}
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-            echo "Requesting Renovate to keep this PR updated"
-            gh pr edit ${{ github.event.pull_request.number }} --add-label keep-updated
+            git add deno.lock
+            git commit --amend --no-edit
+
+            git push --force-with-lease origin HEAD:${{ github.head_ref }}
           else
             echo "No change in lockfile."
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
