@@ -1,0 +1,46 @@
+name: Fix Lockfile on Dependency Updates
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  update-lockfile:
+    if: startsWith(github.head_ref, 'renovate/')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: Stop if last commit not from Renovate
+        if: steps.renovate-check.outputs.author != 'renovate[bot]'
+        run: |
+          echo "Last commit not from Renovate, skipping."
+
+      - name: Install Deno
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
+        uses: denoland/setup-deno@v2
+        with:
+          cache: true
+
+      - name: Update lock file
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
+        run: deno install
+        shell: bash
+
+      - name: Commit changes if needed
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+          if [[ -n "$(git status --porcelain deno.lock)" ]]; then
+            git add deno.lock
+            git commit -m "Auto-update deno.lock"
+            git push
+          fi
