@@ -17,13 +17,26 @@ jobs:
         with:
           submodules: true
 
+      - name: Check last commit author
+        id: renovate-check
+        run: |
+          AUTHOR=$(git log -1 --pretty=format:'%an')
+          EMAIL=$(git log -1 --pretty=format:'%ae')
+          COMMIT=$(git log -1 --pretty=format:'%H')
+
+          echo "Detected commit author: $AUTHOR"
+          echo "Detected commit email: $EMAIL"
+          echo "Commit SHA: $COMMIT"
+
+          echo "author=$AUTHOR" >> $GITHUB_OUTPUT
+
       - name: Stop if last commit not from Renovate
-        if: steps.update-lockfile.outputs.author != 'renovate'
+        if: steps.renovate-check.outputs.author != 'renovate[bot]'
         run: |
           echo "Last commit not from Renovate, skipping."
 
       - name: Install Deno
-        if: steps.update-lockfile.outputs.author == 'renovate'
+        if: steps.update-lockfile.outputs.author == 'renovate[bot]'
         uses: denoland/setup-deno@v2
         with:
           cache: true
