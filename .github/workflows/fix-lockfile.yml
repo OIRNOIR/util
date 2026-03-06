@@ -58,6 +58,9 @@ jobs:
             git add deno.lock
             git commit -m "Auto-update deno.lock"
             git push origin HEAD:${{ github.head_ref }}
+
+            echo "Requesting Renovate to keep this PR updated"
+            gh pr edit ${{ github.event.pull_request.number }} --add-label keep-updated
           else
             echo "No change in lockfile."
           fi
