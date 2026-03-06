@@ -36,18 +36,18 @@ jobs:
           echo "Last commit not from Renovate, skipping."
 
       - name: Install Deno
-        if: steps.update-lockfile.outputs.author == 'renovate[bot]'
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
         uses: denoland/setup-deno@v2
         with:
           cache: true
 
       - name: Update lock file
-        if: steps.update-lockfile.outputs.author == 'renovate[bot]'
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
         run: deno install
         shell: bash
 
       - name: Commit changes if needed
-        if: steps.update-lockfile.outputs.author == 'renovate[bot]'
+        if: steps.renovate-check.outputs.author == 'renovate[bot]'
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
