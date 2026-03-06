@@ -2,7 +2,7 @@
   "version": "5",
   "specifiers": {
     "npm:@biomejs/biome@2.4.6": "2.4.6",
-    "npm:@types/node@25.3.5": "25.3.5",
+    "npm:@types/node@25.3.4": "25.3.4",
     "npm:@types/timestring@7.0.0": "7.0.0",
     "npm:discord.js@14.25.1": "14.25.1",
     "npm:timestring@7.0.0": "7.0.0"
@@ -133,8 +133,8 @@
     "@sapphire/snowflake@3.5.3": {
       "integrity": "sha512-jjmJywLAFoWeBi1W7994zZyiNWPIiqRRNAmSERxyg93xRGzNYvGjlZ0gR6x0F4gPRi2+0O6S71kOZYyr3cxaIQ=="
     },
-    "@types/node@25.3.5": {
-      "integrity": "sha512-oX8xrhvpiyRCQkG1MFchB09f+cXftgIXb3a7UUa4Y3wpmZPw5tyZGTLWhlESOLq1Rq6oDlc8npVU2/9xiCuXMA==",
+    "@types/node@25.3.4": {
+      "integrity": "sha512-NB1qVMIPsjfYtrY+9cCTj2VqLBh/TIDmsZXtmM2Xsn+W2yMlkA9Q1Okpr9W3f1fyGgvelw8ojumDsv8Vc0xufQ==",
       "dependencies": [
         "undici-types"
       ]
@@ -206,7 +206,7 @@
   "workspace": {
     "dependencies": [
       "npm:@biomejs/biome@2.4.6",
-      "npm:@types/node@25.3.5",
+      "npm:@types/node@25.3.4",
       "npm:@types/timestring@7.0.0",
       "npm:discord.js@14.25.1",
       "npm:timestring@7.0.0"
