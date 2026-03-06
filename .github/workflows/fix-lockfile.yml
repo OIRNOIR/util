@@ -64,3 +64,5 @@ jobs:
           else
             echo "No change in lockfile."
           fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
