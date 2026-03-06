@@ -19,9 +19,6 @@ jobs:
           ref: ${{ github.head_ref }}
           fetch-depth: 2
 
-      - name: Debug last commit
-        run: git log -1 --pretty=fuller
-
       - name: Check last commit author
         id: renovate-check
         run: |
@@ -55,13 +52,13 @@ jobs:
         if: steps.renovate-check.outputs.author == 'renovate[bot]'
         run: |
           if [[ -n "$(git status --porcelain deno.lock)" ]]; then
-            git config --global user.name "github-actions[bot]"
-            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git config --global user.name "renovate[bot]"
+            git config --global user.email "9139614+renovate[bot]@users.noreply.github.com"
 
             git add deno.lock
-            git commit --amend --no-edit
+            git commit -m "chore: update deno.lock [skip ci]"
 
-            git push --force-with-lease origin HEAD:${{ github.head_ref }}
+            git push origin HEAD:${{ github.head_ref }}
           else
             echo "No change in lockfile."
           fi
