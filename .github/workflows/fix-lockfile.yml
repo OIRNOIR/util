@@ -52,7 +52,7 @@ jobs:
         if: steps.renovate-check.outputs.author == 'renovate[bot]'
         run: |
           git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
+          git config --global user.email "action@github.com"
 
           if [[ -n "$(git status --porcelain deno.lock)" ]]; then
             git add deno.lock
