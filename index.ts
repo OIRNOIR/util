@@ -5,6 +5,7 @@ import {
 	type AnyComponentBuilder,
 	ApplicationCommandOptionType,
 	ButtonStyle,
+	type CacheType,
 	DiscordjsErrorCodes,
 	type ModalBuilder,
 	type ModalSubmitInteraction,
@@ -162,7 +163,7 @@ export function fixButtonStyle(style: string): number {
 export async function promptModalAnswer(
 	inter: InteractionModalCompatible,
 	modal: ModalBuilder
-): Promise<ModalSubmitInteraction<"cached"> | null> {
+): Promise<ModalSubmitInteraction<CacheType> | null> {
 	modal.setCustomId(`${modal.data.custom_id}_${Date.now()}`);
 	try {
 		await inter.showModal(modal);

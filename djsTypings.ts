@@ -1,5 +1,6 @@
 import type {
 	ApplicationCommandOptionType,
+	CacheType,
 	ModalBuilder,
 	ModalSubmitInteraction
 } from "discord.js";
@@ -27,7 +28,7 @@ export interface InteractionModalCompatible {
 	showModal(modal: ModalBuilder): Promise<undefined>;
 	awaitModalSubmit(
 		options: AwaitModalSubmitOptions
-	): Promise<ModalSubmitInteraction<"cached">>;
+	): Promise<ModalSubmitInteraction<CacheType>>;
 }
 
 export interface ModalSubmitFields {
