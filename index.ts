@@ -4,23 +4,19 @@ import {
 	ActionRowBuilder,
 	type AnyComponentBuilder,
 	ApplicationCommandOptionType,
-	type ButtonInteraction,
 	ButtonStyle,
-	type ChannelSelectMenuInteraction,
-	type ChatInputCommandInteraction,
-	type CommandInteractionOptionResolver,
 	DiscordjsErrorCodes,
-	type MentionableSelectMenuInteraction,
 	type ModalBuilder,
-	type ModalSubmitFields,
 	type ModalSubmitInteraction,
-	type RoleSelectMenuInteraction,
-	type StringSelectMenuInteraction,
-	type UserSelectMenuInteraction,
 	verifyString
 } from "discord.js";
 /* cspell: disable-next-line */
 import timeString from "timestring";
+import type {
+	CommandInteractionOptionResolver,
+	InteractionModalCompatible,
+	ModalSubmitFields
+} from "./djsTypings.ts";
 
 export * from "./Proxy.ts";
 export * from "./Type.ts";
@@ -94,23 +90,7 @@ export function commaNumber(number: number): string {
  * Parses a CommandInteractionOptionResolver instance into an old-fashioned array of strings
  */
 export function parseInteractionArgs(
-	interactionOptions: Omit<
-		CommandInteractionOptionResolver,
-		| "getMessage"
-		| "getFocused"
-		| "getMentionable"
-		| "getRole"
-		| "getUser"
-		| "getMember"
-		| "getAttachment"
-		| "getNumber"
-		| "getInteger"
-		| "getString"
-		| "getChannel"
-		| "getBoolean"
-		| "getSubcommandGroup"
-		| "getSubcommand"
-	>
+	interactionOptions: CommandInteractionOptionResolver
 ): string[] {
 	if (
 		interactionOptions.data == undefined ||
@@ -180,16 +160,9 @@ export function fixButtonStyle(style: string): number {
  * Returns null if the modal is not submitted.
  */
 export async function promptModalAnswer(
-	inter:
-		| ButtonInteraction
-		| StringSelectMenuInteraction
-		| UserSelectMenuInteraction
-		| RoleSelectMenuInteraction
-		| MentionableSelectMenuInteraction
-		| ChannelSelectMenuInteraction
-		| ChatInputCommandInteraction,
+	inter: InteractionModalCompatible,
 	modal: ModalBuilder
-): Promise<ModalSubmitInteraction | null> {
+): Promise<ModalSubmitInteraction<"cached"> | null> {
 	modal.setCustomId(`${modal.data.custom_id}_${Date.now()}`);
 	try {
 		await inter.showModal(modal);
