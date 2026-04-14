@@ -95,7 +95,23 @@ export function commaNumber(number: number): string {
  * Parses a CommandInteractionOptionResolver instance into an old-fashioned array of strings
  */
 export function parseInteractionArgs(
-	interactionOptions: CommandInteractionOptionResolver
+	interactionOptions: Omit<
+		CommandInteractionOptionResolver,
+		| "getMessage"
+		| "getFocused"
+		| "getMentionable"
+		| "getRole"
+		| "getUser"
+		| "getMember"
+		| "getAttachment"
+		| "getNumber"
+		| "getInteger"
+		| "getString"
+		| "getChannel"
+		| "getBoolean"
+		| "getSubcommandGroup"
+		| "getSubcommand"
+	>
 ): string[] {
 	if (
 		interactionOptions.data == undefined ||
