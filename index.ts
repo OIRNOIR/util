@@ -4,20 +4,24 @@ import {
 	ActionRowBuilder,
 	type AnyComponentBuilder,
 	ApplicationCommandOptionType,
+	type ButtonInteraction,
 	ButtonStyle,
 	type CacheType,
+	type ChannelSelectMenuInteraction,
+	type ChatInputCommandInteraction,
+	type CommandInteractionOptionResolver,
 	DiscordjsErrorCodes,
+	type MentionableSelectMenuInteraction,
 	type ModalBuilder,
+	type ModalSubmitFields,
 	type ModalSubmitInteraction,
+	type RoleSelectMenuInteraction,
+	type StringSelectMenuInteraction,
+	type UserSelectMenuInteraction,
 	verifyString
 } from "discord.js";
 /* cspell: disable-next-line */
 import timeString from "timestring";
-import type {
-	CommandInteractionOptionResolver,
-	InteractionModalCompatible,
-	ModalSubmitFields
-} from "./djsTypings.ts";
 
 export * from "./Proxy.ts";
 export * from "./Type.ts";
@@ -161,7 +165,14 @@ export function fixButtonStyle(style: string): number {
  * Returns null if the modal is not submitted.
  */
 export async function promptModalAnswer(
-	inter: InteractionModalCompatible,
+	inter:
+		| ButtonInteraction
+		| StringSelectMenuInteraction
+		| UserSelectMenuInteraction
+		| RoleSelectMenuInteraction
+		| MentionableSelectMenuInteraction
+		| ChannelSelectMenuInteraction
+		| ChatInputCommandInteraction,
 	modal: ModalBuilder
 ): Promise<ModalSubmitInteraction<CacheType> | null> {
 	modal.setCustomId(`${modal.data.custom_id}_${Date.now()}`);
